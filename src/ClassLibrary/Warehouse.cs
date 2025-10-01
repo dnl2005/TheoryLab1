@@ -28,8 +28,33 @@ namespace ClassLibrary
         }
 
         // Операция 2: отгузка товара со склада
+        public static bool CheckShipValid(Good good)
+        {
+            if (good.name is null || good.name == "") return false;
+            if (good.quantity <= 0) return false;
 
+            // Проверяем, что товар существует и его количество достаточно
+            var existingGood = goods.FirstOrDefault(x => x.name == good.name);
+            if (existingGood.name == null) return false; // товар не найден
+            if (existingGood.quantity < good.quantity) return false; // недостаточно товара
 
+            return true;
+        }
+
+        public static void ShipGood(Good good)
+        {
+            // Находим товар и уменьшаем его количество
+            for (int i = 0; i < goods.Count; i++)
+            {
+                if (goods[i].name == good.name)
+                {
+                    var updatedGood = goods[i];
+                    updatedGood.quantity -= good.quantity;
+                    goods[i] = updatedGood;
+                    break;
+                }
+            }
+        }
 
 
         // Операция 3: перемещение товара между складами
@@ -84,7 +109,6 @@ namespace ClassLibrary
         }
 
 
-        // МЕТОДЫ ДЛЯ КОНТРАКТОВ
         public static string GetPreConditionText(int operationIndex)
         {
             return operationIndex switch
@@ -93,7 +117,11 @@ namespace ClassLibrary
                      "- Название товара не пустое.\n" +
                      "- Количество > 0.\n" +
                      "- Товара с таким названием нет на складе.",
-                1 => "Pre-условия для 'Отгрузить товар' (пока не реализованы)",
+                1 => "Требования для 'Отгрузить товар':\n" +
+                     "- Название товара не пустое.\n" +
+                     "- Количество > 0.\n" +
+                     "- Товар с таким названием существует на складе.\n" +
+                     "- Достаточное количество товара для отгрузки.",
                 2 => "Pre-условия для 'Переместить товар' (пока не реализованы)",
                 _ => "Операция не выбрана."
             };
@@ -106,7 +134,9 @@ namespace ClassLibrary
                 0 => "Утверждения после 'Добавить новый товар':\n" +
                      "- В списке появился новый товар с заданным именем и количеством.\n" +
                      "- Общее количество уникальных товаров увеличилось на 1.",
-                1 => "Post-условия для 'Отгрузить товар' (пока не реализованы)",
+                1 => "Утверждения после 'Отгрузить товар':\n" +
+                     "- Количество указанного товара уменьшилось на заданное значение.\n" +
+                     "- Товар остался в списке даже если его количество стало равно 0.",
                 2 => "Post-условия для 'Переместить товар' (пока не реализованы)",
                 _ => "Операция не выбрана."
             };

@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\dnl\\Desktop\\школа\\теория\\Lab_1\\src\\Interface\\UI.csproj": {}
+    "C:\\Users\\misha\\Source\\Repos\\TheoryLab1\\src\\Interface\\UI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\dnl\\Desktop\\школа\\теория\\Lab_1\\src\\ClassLibrary\\Domain.csproj": {
+    "C:\\Users\\misha\\Source\\Repos\\TheoryLab1\\src\\ClassLibrary\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\dnl\\Desktop\\школа\\теория\\Lab_1\\src\\ClassLibrary\\Domain.csproj",
+        "projectUniqueName": "C:\\Users\\misha\\Source\\Repos\\TheoryLab1\\src\\ClassLibrary\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "C:\\Users\\dnl\\Desktop\\школа\\теория\\Lab_1\\src\\ClassLibrary\\Domain.csproj",
-        "packagesPath": "C:\\Users\\dnl\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dnl\\Desktop\\школа\\теория\\Lab_1\\src\\ClassLibrary\\obj\\",
+        "projectPath": "C:\\Users\\misha\\Source\\Repos\\TheoryLab1\\src\\ClassLibrary\\Domain.csproj",
+        "packagesPath": "C:\\Users\\misha\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\misha\\Source\\Repos\\TheoryLab1\\src\\ClassLibrary\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\dnl\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\misha\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -68,24 +68,24 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\dnl\\Desktop\\школа\\теория\\Lab_1\\src\\Interface\\UI.csproj": {
+    "C:\\Users\\misha\\Source\\Repos\\TheoryLab1\\src\\Interface\\UI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\dnl\\Desktop\\школа\\теория\\Lab_1\\src\\Interface\\UI.csproj",
+        "projectUniqueName": "C:\\Users\\misha\\Source\\Repos\\TheoryLab1\\src\\Interface\\UI.csproj",
         "projectName": "UI",
-        "projectPath": "C:\\Users\\dnl\\Desktop\\школа\\теория\\Lab_1\\src\\Interface\\UI.csproj",
-        "packagesPath": "C:\\Users\\dnl\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dnl\\Desktop\\школа\\теория\\Lab_1\\src\\Interface\\obj\\",
+        "projectPath": "C:\\Users\\misha\\Source\\Repos\\TheoryLab1\\src\\Interface\\UI.csproj",
+        "packagesPath": "C:\\Users\\misha\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\misha\\Source\\Repos\\TheoryLab1\\src\\Interface\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\dnl\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\misha\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -100,8 +100,8 @@
           "net8.0-windows7.0": {
             "targetAlias": "net8.0-windows",
             "projectReferences": {
-              "C:\\Users\\dnl\\Desktop\\школа\\теория\\Lab_1\\src\\ClassLibrary\\Domain.csproj": {
-                "projectPath": "C:\\Users\\dnl\\Desktop\\школа\\теория\\Lab_1\\src\\ClassLibrary\\Domain.csproj"
+              "C:\\Users\\misha\\Source\\Repos\\TheoryLab1\\src\\ClassLibrary\\Domain.csproj": {
+                "projectPath": "C:\\Users\\misha\\Source\\Repos\\TheoryLab1\\src\\ClassLibrary\\Domain.csproj"
               }
             }
           }
@@ -140,7 +140,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

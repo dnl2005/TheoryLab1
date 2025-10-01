@@ -53,12 +53,22 @@ namespace UI
                         {
                             Warehouse.AddNewGood(good);
                             MessageBox.Show("Товар добавлен");
-                            PostConditionIndicator.Fill = Brushes.Green; // Успешное Post-условие
+                            PostConditionIndicator.Fill = Brushes.Green;
                             OperationText.Text = "";
                         }
                         break;
                     case 1:
-                        MessageBox.Show("Операция 'Отгрузить товар' пока не реализована.");
+                        if (Warehouse.CheckShipValid(good))
+                        {
+                            Warehouse.ShipGood(good);
+                            MessageBox.Show("Товар отгружен");
+                            PostConditionIndicator.Fill = Brushes.Green;
+                            OperationText.Text = "";
+                        }
+                        else
+                        {
+                            MessageBox.Show("Невозможно отгрузить товар: недостаточно товара на складе или товар не найден");
+                        }
                         break;
                     case 2:
                         MessageBox.Show("Операция 'Переместить товар' пока не реализована.");
@@ -73,11 +83,11 @@ namespace UI
                 MessageBox.Show(ex.Message);
             }
 
-            // После выполнения операции, повторно проверяем Pre-условие (оно может стать невалидным, например, после добавления товара)
             OperationText_TextChanged(null, null);
         }
 
         // НОВЫЙ МЕТОД: Динамическая проверка Pre-условия
+
         private void OperationText_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (OperationText is null) return;
@@ -87,34 +97,38 @@ namespace UI
 
             try
             {
-                if (operationIndex == 0) // Только для "Добавить новый товар"
-                {
-                    // 1. Пытаемся извлечь данные
-                    (string? item, int? quantity) = Warehouse.ExtractItemAndQuantity(OperationText.Text);
+                // 1. Пытаемся извлечь данные
+                (string? item, int? quantity) = Warehouse.ExtractItemAndQuantity(OperationText.Text);
 
-                    if (item is not null && quantity is not null)
+                if (item is not null && quantity is not null)
+                {
+                    // 2. Создаем Good
+                    var good = new Good { name = item, quantity = quantity };
+
+                    switch (operationIndex)
                     {
-                        // 2. Создаем Good
-                        var good = new Good { name = item, quantity = quantity };
-
-                        // 3. Проверяем Pre-условие
-                        isValid = Warehouse.CheckAddValid(good);
+                        case 0: // Добавить новый товар
+                            isValid = Warehouse.CheckAddValid(good); // 3. Проверяем Pre-условие
+                            break;
+                        case 1: // Отгрузить товар
+                            isValid = Warehouse.CheckShipValid(good);
+                            break;
+                        case 2: // Переместить товар
+                                // Пока не реализовано
+                            isValid = false;
+                            break;
+                        default:
+                            isValid = false;
+                            break;
                     }
-                }
-                else
-                {
-                    // Для других операций, которые пока не реализованы, будем считать невалидным или нейтральным.
-                    isValid = false;
                 }
             }
             catch
             {
                 isValid = false;
             }
-
             // Устанавливаем цвет индикатора
             PreConditionIndicator.Fill = isValid ? Brushes.Green : Brushes.Red;
-
             // Сброс Post-индикатора при изменении текста (мы не знаем, выполнится ли Post)
             PostConditionIndicator.Fill = Brushes.Red;
         }
