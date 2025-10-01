@@ -7,16 +7,16 @@
       "RelativeMoniker": "D:0:0:{E75EA444-5460-4061-8594-5BD3DBCBA64F}|Interface\\UI.csproj|solutionrelative:interface\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{E75EA444-5460-4061-8594-5BD3DBCBA64F}|Interface\\UI.csproj|c:\\users\\misha\\source\\repos\\theorylab1\\src\\interface\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{E75EA444-5460-4061-8594-5BD3DBCBA64F}|Interface\\UI.csproj|solutionrelative:interface\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{10418AA2-28F6-4203-8208-4A16EB80357B}|ClassLibrary\\Domain.csproj|c:\\users\\misha\\source\\repos\\theorylab1\\src\\classlibrary\\warehouse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{10418AA2-28F6-4203-8208-4A16EB80357B}|ClassLibrary\\Domain.csproj|solutionrelative:classlibrary\\warehouse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E75EA444-5460-4061-8594-5BD3DBCBA64F}|Interface\\UI.csproj|c:\\users\\misha\\source\\repos\\theorylab1\\src\\interface\\contractwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E75EA444-5460-4061-8594-5BD3DBCBA64F}|Interface\\UI.csproj|solutionrelative:interface\\contractwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E75EA444-5460-4061-8594-5BD3DBCBA64F}|Interface\\UI.csproj|c:\\users\\misha\\source\\repos\\theorylab1\\src\\interface\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{E75EA444-5460-4061-8594-5BD3DBCBA64F}|Interface\\UI.csproj|solutionrelative:interface\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E75EA444-5460-4061-8594-5BD3DBCBA64F}|Interface\\UI.csproj|c:\\users\\misha\\source\\repos\\theorylab1\\src\\interface\\contractwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
@@ -66,7 +66,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "C:\\Users\\misha\\source\\repos\\TheoryLab1\\src\\Interface\\MainWindow.xaml",
               "RelativeDocumentMoniker": "Interface\\MainWindow.xaml",
@@ -90,26 +90,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "ContractWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\misha\\source\\repos\\TheoryLab1\\src\\Interface\\ContractWindow.xaml.cs",
               "RelativeDocumentMoniker": "Interface\\ContractWindow.xaml.cs",
               "ToolTip": "C:\\Users\\misha\\source\\repos\\TheoryLab1\\src\\Interface\\ContractWindow.xaml.cs",
               "RelativeToolTip": "Interface\\ContractWindow.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACUAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAACUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-01T08:04:37.797Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Warehouse.cs",
               "DocumentMoniker": "C:\\Users\\misha\\source\\repos\\TheoryLab1\\src\\ClassLibrary\\Warehouse.cs",
               "RelativeDocumentMoniker": "ClassLibrary\\Warehouse.cs",
-              "ToolTip": "C:\\Users\\misha\\source\\repos\\TheoryLab1\\src\\ClassLibrary\\Warehouse.cs*",
-              "RelativeToolTip": "ClassLibrary\\Warehouse.cs*",
-              "ViewState": "AgIAABUAAAAAAAAAAAA2wB0AAAAvAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\misha\\source\\repos\\TheoryLab1\\src\\ClassLibrary\\Warehouse.cs",
+              "RelativeToolTip": "ClassLibrary\\Warehouse.cs",
+              "ViewState": "AgIAAFkAAAAAAAAAAAAuwI4AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-25T16:27:04.929Z",
               "EditorCaption": ""
@@ -120,9 +120,9 @@
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\misha\\source\\repos\\TheoryLab1\\src\\Interface\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "Interface\\MainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\misha\\source\\repos\\TheoryLab1\\src\\Interface\\MainWindow.xaml.cs*",
-              "RelativeToolTip": "Interface\\MainWindow.xaml.cs*",
-              "ViewState": "AgIAAE0AAAAAAAAAAAAQwFgAAAA5AAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\misha\\source\\repos\\TheoryLab1\\src\\Interface\\MainWindow.xaml.cs",
+              "RelativeToolTip": "Interface\\MainWindow.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAMEAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-25T15:28:25.033Z",
               "EditorCaption": ""

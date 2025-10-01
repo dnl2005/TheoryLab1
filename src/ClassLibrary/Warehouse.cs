@@ -41,6 +41,7 @@ namespace ClassLibrary
             return true;
         }
 
+        // Операция 2: отгрузка товара со склада
         public static void ShipGood(Good good)
         {
             // Находим товар и уменьшаем его количество
@@ -50,7 +51,16 @@ namespace ClassLibrary
                 {
                     var updatedGood = goods[i];
                     updatedGood.quantity -= good.quantity;
-                    goods[i] = updatedGood;
+
+                    // ЕСЛИ КОЛИЧЕСТВО СТАЛО 0 ИЛИ МЕНЬШЕ - УДАЛЯЕМ ТОВАР ИЗ СПИСКА
+                    if (updatedGood.quantity <= 0)
+                    {
+                        goods.RemoveAt(i);
+                    }
+                    else
+                    {
+                        goods[i] = updatedGood;
+                    }
                     break;
                 }
             }
@@ -101,9 +111,16 @@ namespace ClassLibrary
         public static string ShowGoods()
         {
             StringBuilder result = new();
+
+            // ЕСЛИ СПИСОК ПУСТОЙ - ВОЗВРАЩАЕМ СООБЩЕНИЕ
+            if (goods.Count == 0)
+            {
+                return "Товаров на складе нет";
+            }
+
             foreach (Good good in goods)
             {
-                result.Append($"Товар: {good.name}, количество: {good.quantity}\n");
+                result.AppendLine($"Товар: {good.name}, количество: {good.quantity}");
             }
             return result.ToString();
         }

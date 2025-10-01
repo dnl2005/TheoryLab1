@@ -22,6 +22,34 @@ namespace UI
             InitializeComponent();
             // Сразу вызовем проверку, чтобы индикатор был красным/зеленым при запуске, если текст уже есть
             OperationText_TextChanged(null, null);
+            // Инициализируем список товаров при запуске приложения
+            UpdateGoodsList();
+        }
+
+        // НОВЫЙ МЕТОД: Обновление списка товаров на складе
+        private void UpdateGoodsList()
+        {
+            // Очищаем текущий список
+            GoodsList.Items.Clear();
+
+            // Получаем строковое представление товаров из Warehouse
+            string goodsText = Warehouse.ShowGoods();
+
+            // Если есть товары, разбиваем на строки и добавляем в ListBox
+            if (!string.IsNullOrEmpty(goodsText))
+            {
+                string[] goodsLines = goodsText.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                foreach (string line in goodsLines)
+                {
+                    GoodsList.Items.Add(line);
+                }
+            }
+
+            // Если товаров нет, показываем информационное сообщение
+            if (GoodsList.Items.Count == 0)
+            {
+                GoodsList.Items.Add("Товаров на складе нет");
+            }
         }
 
         private Good CreateGood()
@@ -55,6 +83,7 @@ namespace UI
                             MessageBox.Show("Товар добавлен");
                             PostConditionIndicator.Fill = Brushes.Green;
                             OperationText.Text = "";
+                            UpdateGoodsList(); // ОБНОВЛЯЕМ СПИСОК ПОСЛЕ ДОБАВЛЕНИЯ
                         }
                         break;
                     case 1:
@@ -64,6 +93,7 @@ namespace UI
                             MessageBox.Show("Товар отгружен");
                             PostConditionIndicator.Fill = Brushes.Green;
                             OperationText.Text = "";
+                            UpdateGoodsList(); // ОБНОВЛЯЕМ СПИСОК ПОСЛЕ ОТГРУЗКИ
                         }
                         else
                         {
@@ -86,8 +116,7 @@ namespace UI
             OperationText_TextChanged(null, null);
         }
 
-        // НОВЫЙ МЕТОД: Динамическая проверка Pre-условия
-
+        // Динамическая проверка Pre-условия
         private void OperationText_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (OperationText is null) return;
@@ -111,7 +140,7 @@ namespace UI
                             isValid = Warehouse.CheckAddValid(good); // 3. Проверяем Pre-условие
                             break;
                         case 1: // Отгрузить товар
-                            isValid = Warehouse.CheckShipValid(good);
+                            isValid = Warehouse.CheckShipValid(good); // Проверяем Pre-условие для отгрузки
                             break;
                         case 2: // Переместить товар
                                 // Пока не реализовано
@@ -133,7 +162,7 @@ namespace UI
             PostConditionIndicator.Fill = Brushes.Red;
         }
 
-        // НОВЫЙ МЕТОД: Открытие окна контракта
+        // Открытие окна контракта
         private void ShowContractButton_Click(object sender, RoutedEventArgs e)
         {
             int operationIndex = OperationList.SelectedIndex;
@@ -145,8 +174,7 @@ namespace UI
                 return;
             }
 
-            // 2. ИСПРАВЛЕНИЕ ОШИБКИ: Правильный способ получить Content (название) выбранного элемента.
-            // OperationList.Items[index] возвращает ListBoxItem, из которого мы берем Content.
+            // 2. Получаем название выбранной операции
             string title = ((ListBoxItem)OperationList.Items[operationIndex]).Content.ToString();
 
             // 3. Создаем экземпляр нового окна и передаем НУЖНЫЕ данные: индекс (для логики) и название (для заголовка)
@@ -156,7 +184,7 @@ namespace UI
             contractWindow.ShowDialog();
         }
 
-        // НОВЫЙ МЕТОД: При смене операции
+        // При смене операции
         private void OperationList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Перезапускаем проверку Pre-условия для новой операции (вызывает OperationText_TextChanged)
