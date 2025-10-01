@@ -6,33 +6,68 @@
         xmlns:local="clr-namespace:UI"
         mc:Ignorable="d"
         Title="Операции"
-        Height="350"
-        Width="600">
+        Height="450"
+        Width="700">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
+            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="150" />
+        </Grid.RowDefinitions>
 
-        <Grid Grid.Column="0"
-              Margin="10,10,10,10">
+        <!-- Левая колонка - операции и список товаров -->
+        <Grid Grid.Column="0" Grid.RowSpan="2"
+              Margin="10">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="150" />
             </Grid.RowDefinitions>
 
+            <!-- Заголовок списка операций -->
+            <Label Content="Операции:" 
+                   FontWeight="Bold"
+                   Margin="0,0,0,5" />
+
+            <!-- Список операций -->
             <ListBox x:Name="OperationList"
+                     Grid.Row="1"
                      BorderBrush="Gray"
                      BorderThickness="1"
                      SelectionChanged="OperationList_SelectionChanged"
-                     SelectedIndex="0">
+                     SelectedIndex="0" Margin="0,0,0,77">
                 <ListBoxItem Content="Добавить новый товар" />
                 <ListBoxItem Content="Отгрузить товар со склада" />
                 <ListBoxItem Content="Переместить товар между складами" />
             </ListBox>
+
+            <!-- Заголовок списка товаров -->
+            <Label Grid.Row="1"
+                   Content="Товары на складе:" 
+                   FontWeight="Bold"
+                   Margin="0,156,0,46" />
+
+            <!-- Список товаров - ОТОБРАЖАЕТ ДАННЫЕ СКЛАДА -->
+            <ListBox x:Name="GoodsList"
+                     Grid.Row="1"
+                     BorderBrush="Gray"
+                     BorderThickness="1"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="0,192,0,0" Grid.RowSpan="3">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" Margin="2" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </Grid>
 
-        <StackPanel Grid.Column="1"
-                    Margin="10,10,10,10">
+        <!-- Правая колонка - управление операциями -->
+        <StackPanel Grid.Column="1" Grid.Row="0"
+                    Margin="10">
 
             <Label Content="Текст операции"
                    Margin="0,0,0,0" />
@@ -50,6 +85,8 @@
                     Height="30"
                     Name="ShowContractButton"
                     Click="ShowContractButton_Click" />
+
+            <!-- Индикаторы Pre и Post условий -->
             <Grid Margin="0,10,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
@@ -90,5 +127,26 @@
             </Grid>
 
         </StackPanel>
+
+        <!-- Область с подсказками по формату ввода -->
+        <Border Grid.Column="1"
+                Margin="10,233,10,10"
+                BorderBrush="LightGray"
+                BorderThickness="1"
+                Background="WhiteSmoke" Grid.RowSpan="2">
+            <StackPanel Margin="5">
+                <TextBlock Text="Формат ввода:" 
+                           FontWeight="Bold" 
+                           Margin="0,0,0,5"/>
+                <TextBlock Text="&quot;Название товара&quot;, количество" 
+                           Margin="0,0,0,10"/>
+                <TextBlock Text="Пример:" 
+                           FontWeight="Bold"
+                           Margin="0,0,0,5"/>
+                <TextBlock Text="&quot;Ноутбук&quot;, 5"/>
+                <TextBlock Text="&quot;Мышь&quot;, 10"/>
+            </StackPanel>
+        </Border>
+
     </Grid>
 </Window>

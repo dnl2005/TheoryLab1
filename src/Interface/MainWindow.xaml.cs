@@ -22,6 +22,34 @@ namespace UI
             InitializeComponent();
             // Сразу вызовем проверку, чтобы индикатор был красным/зеленым при запуске, если текст уже есть
             OperationText_TextChanged(null, null);
+            // Инициализируем список товаров при запуске приложения
+            UpdateGoodsList();
+        }
+
+        // НОВЫЙ МЕТОД: Обновление списка товаров на складе
+        private void UpdateGoodsList()
+        {
+            // Очищаем текущий список
+            GoodsList.Items.Clear();
+
+            // Получаем строковое представление товаров из Warehouse
+            string goodsText = Warehouse.ShowGoods();
+
+            // Если есть товары, разбиваем на строки и добавляем в ListBox
+            if (!string.IsNullOrEmpty(goodsText))
+            {
+                string[] goodsLines = goodsText.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                foreach (string line in goodsLines)
+                {
+                    GoodsList.Items.Add(line);
+                }
+            }
+
+            // Если товаров нет, показываем информационное сообщение
+            if (GoodsList.Items.Count == 0)
+            {
+                GoodsList.Items.Add("Товаров на складе нет");
+            }
         }
 
         private Good CreateGood()
@@ -53,12 +81,24 @@ namespace UI
                         {
                             Warehouse.AddNewGood(good);
                             MessageBox.Show("Товар добавлен");
-                            PostConditionIndicator.Fill = Brushes.Green; // Успешное Post-условие
+                            PostConditionIndicator.Fill = Brushes.Green;
                             OperationText.Text = "";
+                            UpdateGoodsList(); // ОБНОВЛЯЕМ СПИСОК ПОСЛЕ ДОБАВЛЕНИЯ
                         }
                         break;
                     case 1:
-                        MessageBox.Show("Операция 'Отгрузить товар' пока не реализована.");
+                        if (Warehouse.CheckShipValid(good))
+                        {
+                            Warehouse.ShipGood(good);
+                            MessageBox.Show("Товар отгружен");
+                            PostConditionIndicator.Fill = Brushes.Green;
+                            OperationText.Text = "";
+                            UpdateGoodsList(); // ОБНОВЛЯЕМ СПИСОК ПОСЛЕ ОТГРУЗКИ
+                        }
+                        else
+                        {
+                            MessageBox.Show("Невозможно отгрузить товар: недостаточно товара на складе или товар не найден");
+                        }
                         break;
                     case 2:
                         MessageBox.Show("Операция 'Переместить товар' пока не реализована.");
@@ -73,11 +113,10 @@ namespace UI
                 MessageBox.Show(ex.Message);
             }
 
-            // После выполнения операции, повторно проверяем Pre-условие (оно может стать невалидным, например, после добавления товара)
             OperationText_TextChanged(null, null);
         }
 
-        // НОВЫЙ МЕТОД: Динамическая проверка Pre-условия
+        // Динамическая проверка Pre-условия
         private void OperationText_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (OperationText is null) return;
@@ -87,39 +126,43 @@ namespace UI
 
             try
             {
-                if (operationIndex == 0) // Только для "Добавить новый товар"
-                {
-                    // 1. Пытаемся извлечь данные
-                    (string? item, int? quantity) = Warehouse.ExtractItemAndQuantity(OperationText.Text);
+                // 1. Пытаемся извлечь данные
+                (string? item, int? quantity) = Warehouse.ExtractItemAndQuantity(OperationText.Text);
 
-                    if (item is not null && quantity is not null)
+                if (item is not null && quantity is not null)
+                {
+                    // 2. Создаем Good
+                    var good = new Good { name = item, quantity = quantity };
+
+                    switch (operationIndex)
                     {
-                        // 2. Создаем Good
-                        var good = new Good { name = item, quantity = quantity };
-
-                        // 3. Проверяем Pre-условие
-                        isValid = Warehouse.CheckAddValid(good);
+                        case 0: // Добавить новый товар
+                            isValid = Warehouse.CheckAddValid(good); // 3. Проверяем Pre-условие
+                            break;
+                        case 1: // Отгрузить товар
+                            isValid = Warehouse.CheckShipValid(good); // Проверяем Pre-условие для отгрузки
+                            break;
+                        case 2: // Переместить товар
+                                // Пока не реализовано
+                            isValid = false;
+                            break;
+                        default:
+                            isValid = false;
+                            break;
                     }
-                }
-                else
-                {
-                    // Для других операций, которые пока не реализованы, будем считать невалидным или нейтральным.
-                    isValid = false;
                 }
             }
             catch
             {
                 isValid = false;
             }
-
             // Устанавливаем цвет индикатора
             PreConditionIndicator.Fill = isValid ? Brushes.Green : Brushes.Red;
-
             // Сброс Post-индикатора при изменении текста (мы не знаем, выполнится ли Post)
             PostConditionIndicator.Fill = Brushes.Red;
         }
 
-        // НОВЫЙ МЕТОД: Открытие окна контракта
+        // Открытие окна контракта
         private void ShowContractButton_Click(object sender, RoutedEventArgs e)
         {
             int operationIndex = OperationList.SelectedIndex;
@@ -131,8 +174,7 @@ namespace UI
                 return;
             }
 
-            // 2. ИСПРАВЛЕНИЕ ОШИБКИ: Правильный способ получить Content (название) выбранного элемента.
-            // OperationList.Items[index] возвращает ListBoxItem, из которого мы берем Content.
+            // 2. Получаем название выбранной операции
             string title = ((ListBoxItem)OperationList.Items[operationIndex]).Content.ToString();
 
             // 3. Создаем экземпляр нового окна и передаем НУЖНЫЕ данные: индекс (для логики) и название (для заголовка)
@@ -142,7 +184,7 @@ namespace UI
             contractWindow.ShowDialog();
         }
 
-        // НОВЫЙ МЕТОД: При смене операции
+        // При смене операции
         private void OperationList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Перезапускаем проверку Pre-условия для новой операции (вызывает OperationText_TextChanged)
