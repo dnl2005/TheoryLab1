@@ -1,0 +1,12 @@
+C:\Users\dnl\Desktop\школа\теория\Lab_1\src\ClassLibrary\bin\Debug\net8.0-windows\Domain.deps.json
+C:\Users\dnl\Desktop\школа\теория\Lab_1\src\ClassLibrary\bin\Debug\net8.0-windows\Domain.dll
+C:\Users\dnl\Desktop\школа\теория\Lab_1\src\ClassLibrary\bin\Debug\net8.0-windows\Domain.pdb
+C:\Users\dnl\Desktop\школа\теория\Lab_1\src\ClassLibrary\obj\Debug\net8.0-windows\Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\dnl\Desktop\школа\теория\Lab_1\src\ClassLibrary\obj\Debug\net8.0-windows\Domain.AssemblyInfoInputs.cache
+C:\Users\dnl\Desktop\школа\теория\Lab_1\src\ClassLibrary\obj\Debug\net8.0-windows\Domain.AssemblyInfo.cs
+C:\Users\dnl\Desktop\школа\теория\Lab_1\src\ClassLibrary\obj\Debug\net8.0-windows\Domain.csproj.CoreCompileInputs.cache
+C:\Users\dnl\Desktop\школа\теория\Lab_1\src\ClassLibrary\obj\Debug\net8.0-windows\Domain.sourcelink.json
+C:\Users\dnl\Desktop\школа\теория\Lab_1\src\ClassLibrary\obj\Debug\net8.0-windows\Domain.dll
+C:\Users\dnl\Desktop\школа\теория\Lab_1\src\ClassLibrary\obj\Debug\net8.0-windows\refint\Domain.dll
+C:\Users\dnl\Desktop\школа\теория\Lab_1\src\ClassLibrary\obj\Debug\net8.0-windows\Domain.pdb
+C:\Users\dnl\Desktop\школа\теория\Lab_1\src\ClassLibrary\obj\Debug\net8.0-windows\ref\Domain.dll
