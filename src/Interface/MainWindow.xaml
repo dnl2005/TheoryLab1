@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Операции"
         Height="450"
-        Width="700">
+        Width="749">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300" />
@@ -49,7 +49,7 @@
             <Label Grid.Row="1"
                    Content="Товары на складе:" 
                    FontWeight="Bold"
-                   Margin="0,156,0,46" />
+                   Margin="0,156,160,46" />
 
             <!-- Список товаров - ОТОБРАЖАЕТ ДАННЫЕ СКЛАДА -->
             <ListBox x:Name="GoodsList"
@@ -63,6 +63,16 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
+            <ComboBox x:Name="WarehouseList"
+                      HorizontalAlignment="Left"
+                      Height="26"
+                      Margin="125,159,0,0"
+                      VerticalAlignment="Top"
+                      Width="133"
+                      SelectionChanged="WarehouseList_SelectionChanged" Grid.Row="1" FontWeight="Bold">
+                <ComboBoxItem Height="26" Content="Склад 1" FontWeight="Bold" IsSelected="True"/>
+            </ComboBox>
+
         </Grid>
 
         <!-- Правая колонка - управление операциями -->
@@ -140,6 +150,11 @@
                            Margin="0,0,0,5"/>
                 <TextBlock Text="&quot;Название товара&quot;, количество" 
                            Margin="0,0,0,10"/>
+                <TextBlock Text="Формат ввода для операции перемещения:" 
+                           FontWeight="Bold" 
+                           Margin="0,0,0,5"/>
+                <TextBlock Text="&quot;Название товара&quot;, количество, &quot;склад-источник&quot;, &quot;склад-получатель&quot;" 
+           Margin="0,0,0,10"/>
                 <TextBlock Text="Пример:" 
                            FontWeight="Bold"
                            Margin="0,0,0,5"/>

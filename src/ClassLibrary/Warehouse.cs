@@ -12,63 +12,96 @@ namespace ClassLibrary
 
     public static class Warehouse
     {
-        private static List<Good> goods = [];
+        private static List<(string warehouse, string name, int quantity)> warehouseGoods = new();
+        private static List<string> warehouses = new() { "Склад 1" };
 
         // Операция 1: добавление нового товара
         public static Good CreateGood(string name, int quantity) => new Good { name = name, quantity = quantity };
 
-        public static void AddNewGood(Good good) => goods.Add(good);
-
-        public static bool CheckAddValid(Good good)
+        public static void AddNewGood(string warehouse, string name, int quantity)
         {
-            if (good.name is null || good.name == "") return false;
-            if (good.quantity < 0) return false;
-            if (goods.Any(x => x.name == good.name)) return false;
-            return true;
+            // создаем склад, если его нет
+            AddWarehouse(warehouse);
+
+            // ищем товар на выбранном складе
+            var existing = warehouseGoods.FirstOrDefault(x => x.warehouse == warehouse && x.name == name);
+
+            if (existing.name != null)
+            {
+                // если товар есть — увеличиваем количество
+                warehouseGoods.Remove(existing);
+                warehouseGoods.Add((warehouse, name, existing.quantity + quantity));
+            }
+            else
+            {
+                warehouseGoods.Add((warehouse, name, quantity));
+            }
+        }
+
+        public static bool CheckAddValid(string warehouse, string name, int quantity)
+        {
+            if (string.IsNullOrWhiteSpace(name) || quantity <= 0) return false;
+            return true; // теперь разрешаем добавлять повторно — количество будет суммироваться
         }
 
         // Операция 2: отгузка товара со склада
-        public static bool CheckShipValid(Good good)
+        public static bool CheckShipValid(string warehouse, string name, int quantity)
         {
-            if (good.name is null || good.name == "") return false;
-            if (good.quantity <= 0) return false;
-
-            // Проверяем, что товар существует и его количество достаточно
-            var existingGood = goods.FirstOrDefault(x => x.name == good.name);
-            if (existingGood.name == null) return false; // товар не найден
-            if (existingGood.quantity < good.quantity) return false; // недостаточно товара
-
-            return true;
+            var existing = warehouseGoods.FirstOrDefault(x => x.warehouse == warehouse && x.name == name);
+            return existing.name != null && existing.quantity >= quantity;
         }
 
         // Операция 2: отгрузка товара со склада
-        public static void ShipGood(Good good)
+        public static void ShipGood(string warehouse, string name, int quantity)
         {
-            // Находим товар и уменьшаем его количество
-            for (int i = 0; i < goods.Count; i++)
-            {
-                if (goods[i].name == good.name)
-                {
-                    var updatedGood = goods[i];
-                    updatedGood.quantity -= good.quantity;
-
-                    // ЕСЛИ КОЛИЧЕСТВО СТАЛО 0 ИЛИ МЕНЬШЕ - УДАЛЯЕМ ТОВАР ИЗ СПИСКА
-                    if (updatedGood.quantity <= 0)
-                    {
-                        goods.RemoveAt(i);
-                    }
-                    else
-                    {
-                        goods[i] = updatedGood;
-                    }
-                    break;
-                }
-            }
+            var existing = warehouseGoods.First(x => x.warehouse == warehouse && x.name == name);
+            warehouseGoods.Remove(existing);
+            int remaining = existing.quantity - quantity;
+            if (remaining > 0)
+                warehouseGoods.Add((warehouse, name, remaining));
         }
 
 
         // Операция 3: перемещение товара между складами
 
+        public static void AddWarehouse(string warehouseName)
+        {
+            if (!warehouses.Contains(warehouseName))
+                warehouses.Add(warehouseName);
+        }
+
+        public static List<string> GetWarehouses() => warehouses;
+
+        public static bool CheckMoveValid(string fromWarehouse, string toWarehouse, string name, int quantity)
+        {
+            var existing = warehouseGoods.FirstOrDefault(x => x.warehouse == fromWarehouse && x.name == name);
+            return existing.name != null && existing.quantity >= quantity;
+        }
+
+        public static void MoveGood(string fromWarehouse, string toWarehouse, string name, int quantity)
+        {
+            if (!CheckMoveValid(fromWarehouse, toWarehouse, name, quantity))
+                throw new Exception($"Невозможно переместить товар {name} со склада {fromWarehouse}");
+
+            // уменьшаем количество на исходном складе
+            var source = warehouseGoods.First(x => x.warehouse == fromWarehouse && x.name == name);
+            warehouseGoods.Remove(source);
+            int remainingSource = source.quantity - quantity;
+            if (remainingSource > 0)
+                warehouseGoods.Add((fromWarehouse, name, remainingSource));
+
+            // добавляем на склад-получатель
+            var target = warehouseGoods.FirstOrDefault(x => x.warehouse == toWarehouse && x.name == name);
+            if (target.name != null)
+            {
+                warehouseGoods.Remove(target);
+                warehouseGoods.Add((toWarehouse, name, target.quantity + quantity));
+            }
+            else
+            {
+                warehouseGoods.Add((toWarehouse, name, quantity));
+            }
+        }
 
 
         // метод извленечения значений из строки
@@ -108,21 +141,15 @@ namespace ClassLibrary
         }
 
         // отображение товаров (чисто для дебага)
-        public static string ShowGoods()
+        public static string ShowGoods(string warehouse)
         {
-            StringBuilder result = new();
+            var list = warehouseGoods.Where(x => x.warehouse == warehouse).ToList();
+            if (!list.Any()) return "Товаров на складе нет";
 
-            // ЕСЛИ СПИСОК ПУСТОЙ - ВОЗВРАЩАЕМ СООБЩЕНИЕ
-            if (goods.Count == 0)
-            {
-                return "Товаров на складе нет";
-            }
-
-            foreach (Good good in goods)
-            {
-                result.AppendLine($"Товар: {good.name}, количество: {good.quantity}");
-            }
-            return result.ToString();
+            StringBuilder sb = new();
+            foreach (var item in list)
+                sb.AppendLine($"Товар: {item.name}, количество: {item.quantity}");
+            return sb.ToString();
         }
 
 
@@ -139,7 +166,11 @@ namespace ClassLibrary
                      "- Количество > 0.\n" +
                      "- Товар с таким названием существует на складе.\n" +
                      "- Достаточное количество товара для отгрузки.",
-                2 => "Pre-условия для 'Переместить товар' (пока не реализованы)",
+                2 => "Требования для 'Переместить товар':\n" +
+                     "- Название товара не пустое.\n" +
+                     "- Количество > 0.\n" +
+                     "- Склад-источник существует и содержит достаточное количество товара.\n" +
+                     "- Склад-получатель указан (если склада нет, он будет создан автоматически).",
                 _ => "Операция не выбрана."
             };
         }
@@ -149,12 +180,15 @@ namespace ClassLibrary
             return operationIndex switch
             {
                 0 => "Утверждения после 'Добавить новый товар':\n" +
-                     "- В списке появился новый товар с заданным именем и количеством.\n" +
-                     "- Общее количество уникальных товаров увеличилось на 1.",
+             "- В списке появился новый товар с заданным именем и количеством.\n" +
+             "- Общее количество уникальных товаров увеличилось на 1.",
                 1 => "Утверждения после 'Отгрузить товар':\n" +
                      "- Количество указанного товара уменьшилось на заданное значение.\n" +
                      "- Товар остался в списке даже если его количество стало равно 0.",
-                2 => "Post-условия для 'Переместить товар' (пока не реализованы)",
+                2 => "Утверждения после 'Переместить товар':\n" +
+                     "- Количество товара на складе-источнике уменьшилось на указанное значение.\n" +
+                     "- Товар появился на складе-получателе с указанным количеством.\n" +
+                     "- Если склад-получатель новый, он добавлен в список складов.",
                 _ => "Операция не выбрана."
             };
         }

@@ -2,106 +2,147 @@
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace UI
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
-            // Сразу вызовем проверку, чтобы индикатор был красным/зеленым при запуске, если текст уже есть
             OperationText_TextChanged(null, null);
-            // Инициализируем список товаров при запуске приложения
             UpdateGoodsList();
         }
 
-        // НОВЫЙ МЕТОД: Обновление списка товаров на складе
-        private void UpdateGoodsList()
+        // Получение выбранного склада
+        private string GetSelectedWarehouse()
         {
-            // Очищаем текущий список
-            GoodsList.Items.Clear();
-
-            // Получаем строковое представление товаров из Warehouse
-            string goodsText = Warehouse.ShowGoods();
-
-            // Если есть товары, разбиваем на строки и добавляем в ListBox
-            if (!string.IsNullOrEmpty(goodsText))
-            {
-                string[] goodsLines = goodsText.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-                foreach (string line in goodsLines)
-                {
-                    GoodsList.Items.Add(line);
-                }
-            }
-
-            // Если товаров нет, показываем информационное сообщение
-            if (GoodsList.Items.Count == 0)
-            {
-                GoodsList.Items.Add("Товаров на складе нет");
-            }
+            if (WarehouseList.SelectedItem is ComboBoxItem selected)
+                return selected.Content.ToString()!;
+            return "Склад 1";
         }
 
-        private Good CreateGood()
+        // Создание товара из текста
+        private (string name, int quantity) CreateGood()
         {
             (string? item, int? quantity) = Warehouse.ExtractItemAndQuantity(OperationText.Text);
 
             if (item is null || quantity is null)
-            {
                 throw new ArgumentException("Введены некорректные данные. Ожидается: \"Название\", Количество.");
-            }
 
-            return new Good { name = item, quantity = quantity };
+            return (item, quantity.Value);
         }
 
-        // Обработчик кнопки "Выполнить"
+        // Обновление списка товаров на складе
+        private void UpdateGoodsList()
+        {
+            GoodsList.Items.Clear();
+
+            var selectedWarehouseItem = WarehouseList.SelectedItem as ComboBoxItem;
+            string selectedWarehouse = selectedWarehouseItem?.Content.ToString() ?? "Склад 1";
+
+            string goodsText = Warehouse.ShowGoods(selectedWarehouse);
+
+            if (!string.IsNullOrEmpty(goodsText))
+            {
+                string[] goodsLines = goodsText.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                foreach (string line in goodsLines)
+                    GoodsList.Items.Add(line);
+            }
+
+            if (GoodsList.Items.Count == 0)
+                GoodsList.Items.Add("Товаров на складе нет");
+        }
+
+        // Обработчик смены выбранного склада
+        private void WarehouseList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateGoodsList(); // Обновляем список товаров при смене склада
+        }
+
+        // Кнопка "Выполнить"
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             PostConditionIndicator.Fill = Brushes.Red;
 
             try
             {
-                var good = CreateGood();
-
                 var operation = OperationList.SelectedIndex;
+
+                // Получаем выбранный склад для операций добавления/отгрузки
+                var selectedWarehouseItem = WarehouseList.SelectedItem as ComboBoxItem;
+                string selectedWarehouse = selectedWarehouseItem?.Content.ToString() ?? "Склад 1";
+
                 switch (operation)
                 {
-                    case 0:
-                        if (Warehouse.CheckAddValid(good))
+                    case 0: // Добавить новый товар
                         {
-                            Warehouse.AddNewGood(good);
-                            MessageBox.Show("Товар добавлен");
-                            PostConditionIndicator.Fill = Brushes.Green;
-                            OperationText.Text = "";
-                            UpdateGoodsList(); // ОБНОВЛЯЕМ СПИСОК ПОСЛЕ ДОБАВЛЕНИЯ
+                            (string? item, int? quantity) = Warehouse.ExtractItemAndQuantity(OperationText.Text);
+                            if (item is null || quantity is null)
+                                throw new ArgumentException("Введены некорректные данные. Ожидается: \"Название\", Количество.");
+
+                            if (Warehouse.CheckAddValid(selectedWarehouse, item, quantity.Value))
+                            {
+                                Warehouse.AddNewGood(selectedWarehouse, item, quantity.Value);
+                                MessageBox.Show("Товар добавлен");
+                                PostConditionIndicator.Fill = Brushes.Green;
+                                OperationText.Text = "";
+                                UpdateGoodsList();
+                            }
+                            break;
                         }
-                        break;
-                    case 1:
-                        if (Warehouse.CheckShipValid(good))
+                    case 1: // Отгрузить товар
                         {
-                            Warehouse.ShipGood(good);
-                            MessageBox.Show("Товар отгружен");
-                            PostConditionIndicator.Fill = Brushes.Green;
-                            OperationText.Text = "";
-                            UpdateGoodsList(); // ОБНОВЛЯЕМ СПИСОК ПОСЛЕ ОТГРУЗКИ
+                            (string? item, int? quantity) = Warehouse.ExtractItemAndQuantity(OperationText.Text);
+                            if (item is null || quantity is null)
+                                throw new ArgumentException("Введены некорректные данные. Ожидается: \"Название\", Количество.");
+
+                            if (Warehouse.CheckShipValid(selectedWarehouse, item, quantity.Value))
+                            {
+                                Warehouse.ShipGood(selectedWarehouse, item, quantity.Value);
+                                MessageBox.Show("Товар отгружен");
+                                PostConditionIndicator.Fill = Brushes.Green;
+                                OperationText.Text = "";
+                                UpdateGoodsList();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Невозможно отгрузить товар: недостаточно товара на складе или товар не найден");
+                            }
+                            break;
+                        }
+                    case 2: // Перемещение товара
+                            // Разбираем текст операции, ожидаем формат:
+                            // "название товара", количество, "склад-источник", "склад-получатель"
+                        var parts = OperationText.Text.Split(',', StringSplitOptions.TrimEntries);
+                        if (parts.Length == 4)
+                        {
+                            string name = parts[0].Trim('"');
+                            int quantity = int.Parse(parts[1]);
+                            string fromWarehouse = parts[2].Trim('"');
+                            string toWarehouse = parts[3].Trim('"');
+
+                            // Добавляем склад-получатель, если его нет
+                            EnsureWarehouseExists(toWarehouse);
+
+                            if (Warehouse.CheckMoveValid(fromWarehouse, toWarehouse, name, quantity))
+                            {
+                                Warehouse.MoveGood(fromWarehouse, toWarehouse, name, quantity);
+                                MessageBox.Show($"Товар {name} перемещен со склада {fromWarehouse} на склад {toWarehouse}");
+                                PostConditionIndicator.Fill = Brushes.Green;
+                                OperationText.Text = "";
+                                UpdateGoodsList(); // обновление списка товаров для выбранного склада
+                            }
+                            else
+                            {
+                                MessageBox.Show("Невозможно переместить товар: недостаточно товара или склад не найден");
+                            }
                         }
                         else
                         {
-                            MessageBox.Show("Невозможно отгрузить товар: недостаточно товара на складе или товар не найден");
+                            MessageBox.Show("Неверный формат операции. Ожидается: \"Название товара\", количество, \"Склад-источник\", \"Склад-получатель\"");
                         }
-                        break;
-                    case 2:
-                        MessageBox.Show("Операция 'Переместить товар' пока не реализована.");
                         break;
                     default:
                         MessageBox.Show("Выберите операцию");
@@ -116,7 +157,22 @@ namespace UI
             OperationText_TextChanged(null, null);
         }
 
-        // Динамическая проверка Pre-условия
+        private void EnsureWarehouseExists(string warehouseName)
+        {
+            if (string.IsNullOrWhiteSpace(warehouseName)) return;
+
+            if (!WarehouseList.Items.Cast<ComboBoxItem>().Any(i => i.Content.ToString() == warehouseName))
+            {
+                ComboBoxItem newItem = new ComboBoxItem { Content = warehouseName, FontWeight = FontWeights.Bold };
+                WarehouseList.Items.Add(newItem);
+                Warehouse.AddWarehouse(warehouseName);
+
+                // Выбираем новый склад автоматически
+                WarehouseList.SelectedItem = newItem;
+            }
+        }
+
+        // Проверка Pre-условия
         private void OperationText_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (OperationText is null) return;
@@ -126,68 +182,76 @@ namespace UI
 
             try
             {
-                // 1. Пытаемся извлечь данные
-                (string? item, int? quantity) = Warehouse.ExtractItemAndQuantity(OperationText.Text);
+                // Получаем выбранный склад для добавления/отгрузки
+                var selectedWarehouseItem = WarehouseList.SelectedItem as ComboBoxItem;
+                string selectedWarehouse = selectedWarehouseItem?.Content.ToString() ?? "Склад 1";
 
-                if (item is not null && quantity is not null)
+                switch (operationIndex)
                 {
-                    // 2. Создаем Good
-                    var good = new Good { name = item, quantity = quantity };
+                    case 0: // Добавление
+                    case 1: // Отгрузка
+                        {
+                            (string? item, int? quantity) = Warehouse.ExtractItemAndQuantity(OperationText.Text);
+                            if (item != null && quantity != null)
+                            {
+                                if (operationIndex == 0)
+                                    isValid = Warehouse.CheckAddValid(selectedWarehouse, item, quantity.Value);
+                                else
+                                    isValid = Warehouse.CheckShipValid(selectedWarehouse, item, quantity.Value);
+                            }
+                            break;
+                        }
+                    case 2: // Перемещение
+                        {
+                            var parts = OperationText.Text.Split(',');
+                            if (parts.Length >= 4)
+                            {
+                                string name = parts[0].Trim().Trim('"');
+                                bool quantityParsed = int.TryParse(parts[1].Trim(), out int quantity);
+                                string fromWarehouse = parts[2].Trim().Trim('"');
+                                string toWarehouse = parts[3].Trim().Trim('"');
 
-                    switch (operationIndex)
-                    {
-                        case 0: // Добавить новый товар
-                            isValid = Warehouse.CheckAddValid(good); // 3. Проверяем Pre-условие
+                                if (quantityParsed && !string.IsNullOrWhiteSpace(name) &&
+                                    !string.IsNullOrWhiteSpace(fromWarehouse) && !string.IsNullOrWhiteSpace(toWarehouse))
+                                {
+                                    isValid = Warehouse.CheckMoveValid(fromWarehouse, toWarehouse, name, quantity);
+                                }
+                            }
                             break;
-                        case 1: // Отгрузить товар
-                            isValid = Warehouse.CheckShipValid(good); // Проверяем Pre-условие для отгрузки
-                            break;
-                        case 2: // Переместить товар
-                                // Пока не реализовано
-                            isValid = false;
-                            break;
-                        default:
-                            isValid = false;
-                            break;
-                    }
+                        }
+                    default:
+                        isValid = false;
+                        break;
                 }
             }
             catch
             {
                 isValid = false;
             }
+
             // Устанавливаем цвет индикатора
             PreConditionIndicator.Fill = isValid ? Brushes.Green : Brushes.Red;
-            // Сброс Post-индикатора при изменении текста (мы не знаем, выполнится ли Post)
+            // Сброс Post-индикатора при изменении текста
             PostConditionIndicator.Fill = Brushes.Red;
         }
 
-        // Открытие окна контракта
         private void ShowContractButton_Click(object sender, RoutedEventArgs e)
         {
             int operationIndex = OperationList.SelectedIndex;
 
-            // 1. Проверка, что что-то выбрано
             if (operationIndex == -1)
             {
                 MessageBox.Show("Пожалуйста, выберите операцию из списка.");
                 return;
             }
 
-            // 2. Получаем название выбранной операции
             string title = ((ListBoxItem)OperationList.Items[operationIndex]).Content.ToString();
-
-            // 3. Создаем экземпляр нового окна и передаем НУЖНЫЕ данные: индекс (для логики) и название (для заголовка)
             ContractWindow contractWindow = new ContractWindow(operationIndex, title);
-
-            // Отображаем окно как модальное
             contractWindow.ShowDialog();
         }
 
-        // При смене операции
         private void OperationList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Перезапускаем проверку Pre-условия для новой операции (вызывает OperationText_TextChanged)
             OperationText_TextChanged(null, null);
         }
     }
