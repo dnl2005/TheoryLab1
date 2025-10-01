@@ -30,23 +30,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\user\\.nuget\\packages\\": {},
+    "C:\\Users\\dnl\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\user\\Source\\Repos\\TheoryLab12\\src\\Interface\\UI.csproj",
+      "projectUniqueName": "C:\\Users\\dnl\\Desktop\\школа\\теория\\Lab_1\\src\\Interface\\UI.csproj",
       "projectName": "UI",
-      "projectPath": "C:\\Users\\user\\Source\\Repos\\TheoryLab12\\src\\Interface\\UI.csproj",
-      "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\user\\Source\\Repos\\TheoryLab12\\src\\Interface\\obj\\",
+      "projectPath": "C:\\Users\\dnl\\Desktop\\школа\\теория\\Lab_1\\src\\Interface\\UI.csproj",
+      "packagesPath": "C:\\Users\\dnl\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\dnl\\Desktop\\школа\\теория\\Lab_1\\src\\Interface\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\dnl\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -55,15 +55,14 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0-windows7.0": {
           "targetAlias": "net8.0-windows",
           "projectReferences": {
-            "C:\\Users\\user\\Source\\Repos\\TheoryLab12\\src\\ClassLibrary\\Domain.csproj": {
-              "projectPath": "C:\\Users\\user\\Source\\Repos\\TheoryLab12\\src\\ClassLibrary\\Domain.csproj"
+            "C:\\Users\\dnl\\Desktop\\школа\\теория\\Lab_1\\src\\ClassLibrary\\Domain.csproj": {
+              "projectPath": "C:\\Users\\dnl\\Desktop\\школа\\теория\\Lab_1\\src\\ClassLibrary\\Domain.csproj"
             }
           }
         }
@@ -102,7 +101,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

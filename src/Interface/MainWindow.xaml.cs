@@ -85,8 +85,8 @@ namespace UI
                             if (Warehouse.CheckAddValid(selectedWarehouse, item, quantity.Value))
                             {
                                 Warehouse.AddNewGood(selectedWarehouse, item, quantity.Value);
-                                MessageBox.Show("Товар добавлен");
                                 PostConditionIndicator.Fill = Brushes.Green;
+                                MessageBox.Show("Товар добавлен");
                                 OperationText.Text = "";
                                 UpdateGoodsList();
                             }
@@ -101,8 +101,8 @@ namespace UI
                             if (Warehouse.CheckShipValid(selectedWarehouse, item, quantity.Value))
                             {
                                 Warehouse.ShipGood(selectedWarehouse, item, quantity.Value);
-                                MessageBox.Show("Товар отгружен");
                                 PostConditionIndicator.Fill = Brushes.Green;
+                                MessageBox.Show("Товар отгружен");
                                 OperationText.Text = "";
                                 UpdateGoodsList();
                             }
@@ -129,8 +129,8 @@ namespace UI
                             if (Warehouse.CheckMoveValid(fromWarehouse, toWarehouse, name, quantity))
                             {
                                 Warehouse.MoveGood(fromWarehouse, toWarehouse, name, quantity);
-                                MessageBox.Show($"Товар {name} перемещен со склада {fromWarehouse} на склад {toWarehouse}");
                                 PostConditionIndicator.Fill = Brushes.Green;
+                                MessageBox.Show($"Товар {name} перемещен со склада {fromWarehouse} на склад {toWarehouse}");
                                 OperationText.Text = "";
                                 UpdateGoodsList(); // обновление списка товаров для выбранного склада
                             }
