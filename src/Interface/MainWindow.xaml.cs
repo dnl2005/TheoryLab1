@@ -1,15 +1,34 @@
-﻿using ClassLibrary;
+﻿using Domain;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
 namespace UI
 {
     public partial class MainWindow : Window
     {
+        private string _lastWp = "";
+        private string _lastPost = "";
+        private string _lastCode = "";
+
+        private WPCalculator _calculator;
+        private ExpressionParser _expressionParser;
+        private CodeParser _codeParser;
+
         public MainWindow()
         {
+            InitializeComponent();
+            _calculator = new WPCalculator();
+            _expressionParser = new ExpressionParser();
+            _codeParser = new CodeParser();
+
             InitializeComponent();
             OperationText_TextChanged(null, null);
             UpdateGoodsList();
@@ -253,6 +272,182 @@ namespace UI
         private void OperationList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             OperationText_TextChanged(null, null);
+        }
+
+
+        // ======= КОНСТРУКТОР ФРАГМЕНТА =======
+        private void CalculateBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string code = CodeEditorTextBox.Text;
+                string postCondition = PostConditionTextBox.Text;
+
+                // Парсим код и постусловие
+                var program = ParseCode(code);
+                var postExpression = ParseExpression(postCondition);
+
+                if (program == null || postExpression == null)
+                {
+                    MessageBox.Show("Ошибка парсинга кода или выражения", "Ошибка");
+                    return;
+                }
+
+                // Вычисляем WP
+                var wp = _calculator.CalculateWP(program, postExpression);
+
+                // Обновляем UI с результатами
+                UpdateResultsUI(wp);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка расчета: {ex.Message}", "Ошибка");
+            }
+        }
+
+        private void ShowHoareTriadBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string code = CodeEditorTextBox.Text;
+                string postCondition = PostConditionTextBox.Text;
+
+                var program = ParseCode(code);
+                var postExpression = ParseExpression(postCondition);
+                var preExpression = ParseExpression(WpResultTextBox.Text);
+
+                if (program == null || postExpression == null || preExpression == null)
+                    return;
+
+                string triad = _calculator.GetHoareTriad(preExpression, program, postExpression);
+                MessageBox.Show(triad, "Триада Хоара");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка");
+            }
+        }
+
+        private void AddAssignmentBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string assignment = "x := выражение;";
+            CodeEditorTextBox.Text += Environment.NewLine + assignment;
+        }
+
+        private void AddIfBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string ifStatement =
+                "if (условие) {" + Environment.NewLine +
+                "    // операторы" + Environment.NewLine +
+                "} else {" + Environment.NewLine +
+                "    // операторы" + Environment.NewLine +
+                "}";
+            CodeEditorTextBox.Text += Environment.NewLine + ifStatement;
+        }
+
+        private void ClearCodeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            CodeEditorTextBox.Text = "";
+        }
+
+        private void PresetsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (PresetsComboBox.SelectedIndex <= 0) return;
+
+            string selectedPreset = ((ComboBoxItem)PresetsComboBox.SelectedItem).Content.ToString();
+
+            switch (selectedPreset)
+            {
+                case "Max из двух":
+                    LoadMaxExample();
+                    break;
+                case "Квадратное уравнение":
+                    LoadQuadraticExample();
+                    break;
+                case "Последовательность присваиваний":
+                    LoadSequenceExample();
+                    break;
+            }
+
+            // Сбрасываем выбор
+            PresetsComboBox.SelectedIndex = 0;
+        }
+
+        private void LoadMaxExample()
+        {
+            CodeEditorTextBox.Text = "if (x1 >= x2) max := x1; else max := x2;";
+            PostConditionTextBox.Text = "max > 100";
+            PostConditionHumanTextBox.Text = "max больше 100";
+        }
+
+        private void LoadQuadraticExample()
+        {
+            CodeEditorTextBox.Text =
+                "D := b*b - 4*a*c;\n" +
+                "if (D >= 0)\n" +
+                "    x1 := (-b + D) / (2*a);\n" +  // Упростил убрав sqrt
+                "else\n" +
+                "    x1 := -999;";
+
+            PostConditionTextBox.Text = "x1 != -999";
+            PostConditionHumanTextBox.Text = "корень вычислен";
+        }
+
+        private void LoadSequenceExample()
+        {
+            CodeEditorTextBox.Text =
+                "x := x + 10;" + Environment.NewLine +
+                "y := x + 1;";
+            PostConditionTextBox.Text = "y == x - 9 and x > 15";
+            PostConditionHumanTextBox.Text = "y равно x-9 и x больше 15";
+        }
+
+        private void UpdateResultsUI(Expression wp)
+        {
+            // Очищаем предыдущие результаты
+            StepsListBox.Items.Clear();
+
+            // Добавляем шаги расчета
+            foreach (var step in _calculator.CalculationSteps)
+            {
+                StepsListBox.Items.Add(step);
+            }
+
+            // Показываем итоговый WP
+            WpResultTextBox.Text = wp.ToHumanReadable();
+            WpHumanResultTextBox.Text = wp.ToHumanReadable(); // Можно сделать более человеческое описание
+        }
+
+        // Заглушки для парсеров - их нужно будет реализовать
+        private Statement ParseCode(string code)
+        {
+            try
+            {
+                var result = _codeParser.Parse(code);
+                if (result == null)
+                {
+                    MessageBox.Show("Не удалось распарсить код", "Ошибка");
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка парсинга кода: {ex.Message}\n\nУпростите код или используйте пресеты", "Ошибка парсинга");
+                return null;
+            }
+        }
+
+        private Expression ParseExpression(string expression)
+        {
+            try
+            {
+                return _expressionParser.Parse(expression);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка парсинга выражения '{expression}': {ex.Message}", "Ошибка парсинга");
+                return null;
+            }
         }
     }
 }
