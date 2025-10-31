@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\dnl\\Desktop\\\u0448\u043A\u043E\u043B\u0430\\\u0442\u0435\u043E\u0440\u0438\u044F\\Lab_1\\src\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{10418AA2-28F6-4203-8208-4A16EB80357B}|ClassLibrary\\Domain.csproj|c:\\users\\dnl\\desktop\\\u0448\u043A\u043E\u043B\u0430\\\u0442\u0435\u043E\u0440\u0438\u044F\\lab_1\\src\\classlibrary\\codeparser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{10418AA2-28F6-4203-8208-4A16EB80357B}|ClassLibrary\\Domain.csproj|solutionrelative:classlibrary\\codeparser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{E75EA444-5460-4061-8594-5BD3DBCBA64F}|Interface\\UI.csproj|c:\\users\\dnl\\desktop\\\u0448\u043A\u043E\u043B\u0430\\\u0442\u0435\u043E\u0440\u0438\u044F\\lab_1\\src\\interface\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E75EA444-5460-4061-8594-5BD3DBCBA64F}|Interface\\UI.csproj|solutionrelative:interface\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -21,10 +25,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{10418AA2-28F6-4203-8208-4A16EB80357B}|ClassLibrary\\Domain.csproj|c:\\users\\dnl\\desktop\\\u0448\u043A\u043E\u043B\u0430\\\u0442\u0435\u043E\u0440\u0438\u044F\\lab_1\\src\\classlibrary\\models.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{10418AA2-28F6-4203-8208-4A16EB80357B}|ClassLibrary\\Domain.csproj|solutionrelative:classlibrary\\models.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{10418AA2-28F6-4203-8208-4A16EB80357B}|ClassLibrary\\Domain.csproj|c:\\users\\dnl\\desktop\\\u0448\u043A\u043E\u043B\u0430\\\u0442\u0435\u043E\u0440\u0438\u044F\\lab_1\\src\\classlibrary\\codeparser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{10418AA2-28F6-4203-8208-4A16EB80357B}|ClassLibrary\\Domain.csproj|solutionrelative:classlibrary\\codeparser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,73 +34,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 34,
+          "SelectedChildIndex": 29,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "CodeParser.cs",
-              "DocumentMoniker": "C:\\Users\\dnl\\Desktop\\\u0448\u043A\u043E\u043B\u0430\\\u0442\u0435\u043E\u0440\u0438\u044F\\Lab_1\\src\\ClassLibrary\\CodeParser.cs",
-              "RelativeDocumentMoniker": "ClassLibrary\\CodeParser.cs",
-              "ToolTip": "C:\\Users\\dnl\\Desktop\\\u0448\u043A\u043E\u043B\u0430\\\u0442\u0435\u043E\u0440\u0438\u044F\\Lab_1\\src\\ClassLibrary\\CodeParser.cs",
-              "RelativeToolTip": "ClassLibrary\\CodeParser.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-25T11:47:45.764Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ExpressionParser.cs",
-              "DocumentMoniker": "C:\\Users\\dnl\\Desktop\\\u0448\u043A\u043E\u043B\u0430\\\u0442\u0435\u043E\u0440\u0438\u044F\\Lab_1\\src\\ClassLibrary\\ExpressionParser.cs",
-              "RelativeDocumentMoniker": "ClassLibrary\\ExpressionParser.cs",
-              "ToolTip": "C:\\Users\\dnl\\Desktop\\\u0448\u043A\u043E\u043B\u0430\\\u0442\u0435\u043E\u0440\u0438\u044F\\Lab_1\\src\\ClassLibrary\\ExpressionParser.cs",
-              "RelativeToolTip": "ClassLibrary\\ExpressionParser.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-25T11:47:40.462Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Expressions.cs",
-              "DocumentMoniker": "C:\\Users\\dnl\\Desktop\\\u0448\u043A\u043E\u043B\u0430\\\u0442\u0435\u043E\u0440\u0438\u044F\\Lab_1\\src\\ClassLibrary\\Expressions.cs",
-              "RelativeDocumentMoniker": "ClassLibrary\\Expressions.cs",
-              "ToolTip": "C:\\Users\\dnl\\Desktop\\\u0448\u043A\u043E\u043B\u0430\\\u0442\u0435\u043E\u0440\u0438\u044F\\Lab_1\\src\\ClassLibrary\\Expressions.cs",
-              "RelativeToolTip": "ClassLibrary\\Expressions.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-25T11:47:30.059Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Models.cs",
-              "DocumentMoniker": "C:\\Users\\dnl\\Desktop\\\u0448\u043A\u043E\u043B\u0430\\\u0442\u0435\u043E\u0440\u0438\u044F\\Lab_1\\src\\ClassLibrary\\Models.cs",
-              "RelativeDocumentMoniker": "ClassLibrary\\Models.cs",
-              "ToolTip": "C:\\Users\\dnl\\Desktop\\\u0448\u043A\u043E\u043B\u0430\\\u0442\u0435\u043E\u0440\u0438\u044F\\Lab_1\\src\\ClassLibrary\\Models.cs",
-              "RelativeToolTip": "ClassLibrary\\Models.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-25T11:47:26.168Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "WPCalculator.cs",
-              "DocumentMoniker": "C:\\Users\\dnl\\Desktop\\\u0448\u043A\u043E\u043B\u0430\\\u0442\u0435\u043E\u0440\u0438\u044F\\Lab_1\\src\\ClassLibrary\\WPCalculator.cs",
-              "RelativeDocumentMoniker": "ClassLibrary\\WPCalculator.cs",
-              "ToolTip": "C:\\Users\\dnl\\Desktop\\\u0448\u043A\u043E\u043B\u0430\\\u0442\u0435\u043E\u0440\u0438\u044F\\Lab_1\\src\\ClassLibrary\\WPCalculator.cs",
-              "RelativeToolTip": "ClassLibrary\\WPCalculator.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-25T11:47:07.282Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
@@ -220,12 +155,73 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "CodeParser.cs",
+              "DocumentMoniker": "C:\\Users\\dnl\\Desktop\\\u0448\u043A\u043E\u043B\u0430\\\u0442\u0435\u043E\u0440\u0438\u044F\\Lab_1\\src\\ClassLibrary\\CodeParser.cs",
+              "RelativeDocumentMoniker": "ClassLibrary\\CodeParser.cs",
+              "ToolTip": "C:\\Users\\dnl\\Desktop\\\u0448\u043A\u043E\u043B\u0430\\\u0442\u0435\u043E\u0440\u0438\u044F\\Lab_1\\src\\ClassLibrary\\CodeParser.cs",
+              "RelativeToolTip": "ClassLibrary\\CodeParser.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-25T11:47:45.764Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ExpressionParser.cs",
+              "DocumentMoniker": "C:\\Users\\dnl\\Desktop\\\u0448\u043A\u043E\u043B\u0430\\\u0442\u0435\u043E\u0440\u0438\u044F\\Lab_1\\src\\ClassLibrary\\ExpressionParser.cs",
+              "RelativeDocumentMoniker": "ClassLibrary\\ExpressionParser.cs",
+              "ToolTip": "C:\\Users\\dnl\\Desktop\\\u0448\u043A\u043E\u043B\u0430\\\u0442\u0435\u043E\u0440\u0438\u044F\\Lab_1\\src\\ClassLibrary\\ExpressionParser.cs",
+              "RelativeToolTip": "ClassLibrary\\ExpressionParser.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-25T11:47:40.462Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Expressions.cs",
+              "DocumentMoniker": "C:\\Users\\dnl\\Desktop\\\u0448\u043A\u043E\u043B\u0430\\\u0442\u0435\u043E\u0440\u0438\u044F\\Lab_1\\src\\ClassLibrary\\Expressions.cs",
+              "RelativeDocumentMoniker": "ClassLibrary\\Expressions.cs",
+              "ToolTip": "C:\\Users\\dnl\\Desktop\\\u0448\u043A\u043E\u043B\u0430\\\u0442\u0435\u043E\u0440\u0438\u044F\\Lab_1\\src\\ClassLibrary\\Expressions.cs",
+              "RelativeToolTip": "ClassLibrary\\Expressions.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-25T11:47:30.059Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Models.cs",
+              "DocumentMoniker": "C:\\Users\\dnl\\Desktop\\\u0448\u043A\u043E\u043B\u0430\\\u0442\u0435\u043E\u0440\u0438\u044F\\Lab_1\\src\\ClassLibrary\\Models.cs",
+              "RelativeDocumentMoniker": "ClassLibrary\\Models.cs",
+              "ToolTip": "C:\\Users\\dnl\\Desktop\\\u0448\u043A\u043E\u043B\u0430\\\u0442\u0435\u043E\u0440\u0438\u044F\\Lab_1\\src\\ClassLibrary\\Models.cs",
+              "RelativeToolTip": "ClassLibrary\\Models.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-25T11:47:26.168Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "WPCalculator.cs",
+              "DocumentMoniker": "C:\\Users\\dnl\\Desktop\\\u0448\u043A\u043E\u043B\u0430\\\u0442\u0435\u043E\u0440\u0438\u044F\\Lab_1\\src\\ClassLibrary\\WPCalculator.cs",
+              "RelativeDocumentMoniker": "ClassLibrary\\WPCalculator.cs",
+              "ToolTip": "C:\\Users\\dnl\\Desktop\\\u0448\u043A\u043E\u043B\u0430\\\u0442\u0435\u043E\u0440\u0438\u044F\\Lab_1\\src\\ClassLibrary\\WPCalculator.cs",
+              "RelativeToolTip": "ClassLibrary\\WPCalculator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-25T11:47:07.282Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\dnl\\Desktop\\\u0448\u043A\u043E\u043B\u0430\\\u0442\u0435\u043E\u0440\u0438\u044F\\Lab_1\\src\\Interface\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "Interface\\MainWindow.xaml.cs",
               "ToolTip": "C:\\Users\\dnl\\Desktop\\\u0448\u043A\u043E\u043B\u0430\\\u0442\u0435\u043E\u0440\u0438\u044F\\Lab_1\\src\\Interface\\MainWindow.xaml.cs",
               "RelativeToolTip": "Interface\\MainWindow.xaml.cs",
-              "ViewState": "AgIAAEsAAAAAAAAAAAAUwJQBAAAzAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAJQBAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-09T14:27:10.13Z",
               "EditorCaption": ""
