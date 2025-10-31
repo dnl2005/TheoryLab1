@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\dnl\Desktop\школа\теория\Lab_1\src\Interface\obj\Debug\net8.0-windows\
+C:\Users\user\Source\Repos\TheoryLab1\src\Interface\obj\Debug\net8.0-windows\
 UI
 none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
-C:\Users\dnl\Desktop\школа\теория\Lab_1\src\Interface\App.xaml
-2-553004822
+C:\Users\user\Source\Repos\TheoryLab1\src\Interface\App.xaml
+3-185947509
 
-7373961810
-199-1528725982
-ContractWindow.xaml;MainWindow.xaml;
+8-1746862154
+199-1759681365
+ContractWindow.xaml;HelpWindow.xaml;MainWindow.xaml;
 
-True
+False
 

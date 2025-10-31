@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:UI"
         mc:Ignorable="d"
         Title="И то, и то"
-        Height="450"
-        Width="749">
+        Height="519"
+        Width="832">
     <TabControl>
         <TabItem Header="Операции">
             <Grid>
@@ -15,15 +15,12 @@
                     <ColumnDefinition Width="300" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="150" />
-                </Grid.RowDefinitions>
+
 
                 <!-- Левая колонка - операции и список товаров -->
                 <Grid Grid.Column="0"
                       Grid.RowSpan="2"
-                      Margin="10">
+                      Margin="10,10,10,10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
@@ -53,7 +50,7 @@
                     <Label Grid.Row="1"
                            Content="Товары на складе:"
                            FontWeight="Bold"
-                           Margin="0,156,160,46" />
+                           Margin="0,197,160,50" />
 
                     <!-- Список товаров - ОТОБРАЖАЕТ ДАННЫЕ СКЛАДА -->
                     <ListBox x:Name="GoodsList"
@@ -61,7 +58,7 @@
                              BorderBrush="Gray"
                              BorderThickness="1"
                              ScrollViewer.VerticalScrollBarVisibility="Auto"
-                             Margin="0,192,0,0"
+                             Margin="0,229,0,0"
                              Grid.RowSpan="3">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
@@ -73,32 +70,156 @@
                     <ComboBox x:Name="WarehouseList"
                               HorizontalAlignment="Left"
                               Height="26"
-                              Margin="125,159,0,0"
+                              Margin="120,199,0,0"
                               VerticalAlignment="Top"
                               Width="133"
                               SelectionChanged="WarehouseList_SelectionChanged"
                               Grid.Row="1"
-                              FontWeight="Bold">
+                              FontWeight="Bold"
+                              ToolTip="Выберите склад, на котором выполняется добавление или отгрузка">
                         <ComboBoxItem Height="26"
                                       Content="Склад 1"
                                       FontWeight="Bold"
-                                      IsSelected="True" />
+                                      IsSelected="True"/>
+                        <ComboBoxItem Height="26"
+                                      Content="Склад 2"
+                                      FontWeight="Bold" />
+                        <ComboBoxItem Height="26"
+                                      Content="Склад 3"
+                                      FontWeight="Bold" />
+                        <ComboBoxItem Height="26"
+                                      Content="Склад 4"
+                                      FontWeight="Bold" />
+                        <ComboBoxItem Height="26"
+                                      Content="Склад 5"
+                                      FontWeight="Bold" />
                     </ComboBox>
+                    
 
                 </Grid>
 
                 <!-- Правая колонка - управление операциями -->
                 <StackPanel Grid.Column="1"
                             Grid.Row="0"
-                            Margin="10">
+                            Margin="10,10,10,0">
 
-                    <Label Content="Текст операции"
+                    <StackPanel x:Name="EnterGoodsNameAndQuantity"
+                                Visibility="Visible">
+                        <Label Content="Введите название товара:"
+                           FontWeight="Bold"
                            Margin="0,0,0,0" />
 
-                    <TextBox Name="OperationText"
-                             Margin="0,0,0,10"
-                             Height="30"
-                             TextChanged="OperationText_TextChanged" />
+                        <TextBox Name="GoodsName"
+                                 Margin="0,0,0,10"
+                                 Height="30"
+                                 TextChanged="GoodsName_TextChanged"
+                                 PreviewTextInput="GoodsName_PreviewTextInput"
+                                 DataObject.Pasting="GoodsName_Pasting"
+                                 ToolTip="Только буквы (кириллица/латиница) и пробелы. Поле не может быть пустым." />
+
+                        <Label Content="Введите количество товара:"
+                               FontWeight="Bold"
+                               Margin="0,0,0,0" />
+
+                        <TextBox Name="GoodsQuantity"
+                                 Margin="0,0,0,10"
+                                 Height="30"
+                                 TextChanged="GoodsQuantity_TextChanged"
+                                 PreviewTextInput="Digits_PreviewTextInput"
+                                 PreviewKeyDown="Digits_PreviewKeyDown"
+                                 DataObject.Pasting="Digits_Pasting"
+                                 ToolTip="Только целые числа больше 0." />
+                    </StackPanel>
+                    <!-- Область для работы с 3 операцией -->
+                    <Border x:Name="MoveGoods"
+                            Grid.Column="1"
+                            Margin="0,0,0,10"
+                            BorderThickness="1"
+                            Grid.RowSpan="2"
+                            Visibility="Collapsed"
+                            ToolTip="Склад-источник. Должен отличаться от склада-получателя.">
+                        <StackPanel Margin="5">
+                            <TextBlock Text="Выберите склад из которого перемещаем товар:"
+                                       FontWeight="Bold"
+                                       Margin="0,0,0,5" />
+                            <ComboBox x:Name="WarehouseListMoveFrom"
+                                      HorizontalAlignment="Left"
+                                      Width="100"
+                                      Height="26"
+                                      SelectionChanged="WarehouseListMoveFrom_SelectionChanged"
+                                      Grid.Row="1"
+                                      FontWeight="Bold">
+                                <ComboBoxItem Height="26"
+                                              Content="Склад 1"
+                                              FontWeight="Bold" />
+                                <ComboBoxItem Height="26"
+                                              Content="Склад 2"
+                                              FontWeight="Bold" />
+                                <ComboBoxItem Height="26"
+                                              Content="Склад 3"
+                                              FontWeight="Bold" />
+                                <ComboBoxItem Height="26"
+                                              Content="Склад 4"
+                                              FontWeight="Bold" />
+                                <ComboBoxItem Height="26"
+                                              Content="Склад 5"
+                                              FontWeight="Bold" />
+                            </ComboBox>
+                            
+                            <TextBlock Text="Выберите перемещаемый товар:"
+                                       FontWeight="Bold"
+                                       Margin="0,0,0,5" />
+                            <ComboBox x:Name="GoodsNameToMove"
+                                      HorizontalAlignment="Left"
+                                      Width="100"
+                                      Height="26"
+                                      SelectionChanged="GoodsNameToMove_SelectionChanged"
+                                      Grid.Row="1"
+                                      FontWeight="Bold"
+                                      ToolTip="Список доступных товаров на складе-источнике (только с остатком > 0).">
+                            </ComboBox>
+                            <Label Content="Введите количество перемещаемого товара:"
+                                   FontWeight="Bold"
+                                   Margin="0,0,0,0" />
+
+                            <TextBox Name="GoodsQuantityToMove"
+                                     Margin="0,0,0,10"
+                                     Height="30"
+                                     TextChanged="GoodsQuantityToMovet_TextChanged"
+                                     PreviewTextInput="Digits_PreviewTextInput"
+                                     PreviewKeyDown="Digits_PreviewKeyDown"
+                                     DataObject.Pasting="Digits_Pasting"
+                                     ToolTip="Только целые числа больше 0. Не больше, чем остаток на складе-источнике." />
+
+                            <TextBlock Text="Выберите склад в который перемещаем товар:"
+                                       FontWeight="Bold"
+                                       Margin="0,0,0,5" />
+                            <ComboBox x:Name="WarehouseListMoveTo"
+                                      HorizontalAlignment="Left"
+                                      Width="100"
+                                      Height="26"
+                                      SelectionChanged="WarehouseListMoveTo_SelectionChanged"
+                                      Grid.Row="1"
+                                      FontWeight="Bold"
+                                      ToolTip="Склад-получатель. Должен отличаться от склада-источника.">
+                                <ComboBoxItem Height="26"
+                                              Content="Склад 1"
+                                              FontWeight="Bold" />
+                                <ComboBoxItem Height="26"
+                                              Content="Склад 2"
+                                              FontWeight="Bold" />
+                                <ComboBoxItem Height="26"
+                                              Content="Склад 3"
+                                              FontWeight="Bold" />
+                                <ComboBoxItem Height="26"
+                                              Content="Склад 4"
+                                              FontWeight="Bold" />
+                                <ComboBoxItem Height="26"
+                                              Content="Склад 5"
+                                              FontWeight="Bold" />
+                            </ComboBox>
+                        </StackPanel>
+                    </Border>
                     <Button Content="Выполнить"
                             Height="30"
                             Margin="0,0,0,10"
@@ -108,6 +229,10 @@
                             Height="30"
                             Name="ShowContractButton"
                             Click="ShowContractButton_Click" />
+                    <Button Content="Справка"
+                            Height="30"
+                            Margin="0,8,0,0"
+                            Click="HelpButton_Click" />
 
                     <!-- Индикаторы Pre и Post условий -->
                     <Grid Margin="0,10,0,0">
@@ -148,35 +273,7 @@
                                    Content="Post-условие" />
                         </Grid>
                     </Grid>
-
                 </StackPanel>
-
-                <!-- Область с подсказками по формату ввода -->
-                <Border Grid.Column="1"
-                        Margin="10,233,10,10"
-                        BorderBrush="LightGray"
-                        BorderThickness="1"
-                        Background="WhiteSmoke"
-                        Grid.RowSpan="2">
-                    <StackPanel Margin="5">
-                        <TextBlock Text="Формат ввода:"
-                                   FontWeight="Bold"
-                                   Margin="0,0,0,5" />
-                        <TextBlock Text="&quot;Название товара&quot;, количество"
-                                   Margin="0,0,0,10" />
-                        <TextBlock Text="Формат ввода для операции перемещения:"
-                                   FontWeight="Bold"
-                                   Margin="0,0,0,5" />
-                        <TextBlock Text="&quot;Название товара&quot;, количество, &quot;склад-источник&quot;, &quot;склад-получатель&quot;"
-                                   Margin="0,0,0,10" />
-                        <TextBlock Text="Пример:"
-                                   FontWeight="Bold"
-                                   Margin="0,0,0,5" />
-                        <TextBlock Text="&quot;Ноутбук&quot;, 5" />
-                        <TextBlock Text="&quot;Мышь&quot;, 10" />
-                    </StackPanel>
-                </Border>
-
             </Grid>
         </TabItem>
 

@@ -34,3 +34,15 @@ C:\Users\user\Source\Repos\TheoryLab12\src\ClassLibrary\obj\Debug\net8.0-windows
 C:\Users\user\Source\Repos\TheoryLab12\src\ClassLibrary\obj\Debug\net8.0-windows\refint\Domain.dll
 C:\Users\user\Source\Repos\TheoryLab12\src\ClassLibrary\obj\Debug\net8.0-windows\Domain.pdb
 C:\Users\user\Source\Repos\TheoryLab12\src\ClassLibrary\obj\Debug\net8.0-windows\ref\Domain.dll
+C:\Users\user\Source\Repos\TheoryLab1\src\ClassLibrary\bin\Debug\net8.0-windows\Domain.deps.json
+C:\Users\user\Source\Repos\TheoryLab1\src\ClassLibrary\bin\Debug\net8.0-windows\Domain.dll
+C:\Users\user\Source\Repos\TheoryLab1\src\ClassLibrary\bin\Debug\net8.0-windows\Domain.pdb
+C:\Users\user\Source\Repos\TheoryLab1\src\ClassLibrary\obj\Debug\net8.0-windows\Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\Source\Repos\TheoryLab1\src\ClassLibrary\obj\Debug\net8.0-windows\Domain.AssemblyInfoInputs.cache
+C:\Users\user\Source\Repos\TheoryLab1\src\ClassLibrary\obj\Debug\net8.0-windows\Domain.AssemblyInfo.cs
+C:\Users\user\Source\Repos\TheoryLab1\src\ClassLibrary\obj\Debug\net8.0-windows\Domain.csproj.CoreCompileInputs.cache
+C:\Users\user\Source\Repos\TheoryLab1\src\ClassLibrary\obj\Debug\net8.0-windows\Domain.sourcelink.json
+C:\Users\user\Source\Repos\TheoryLab1\src\ClassLibrary\obj\Debug\net8.0-windows\Domain.dll
+C:\Users\user\Source\Repos\TheoryLab1\src\ClassLibrary\obj\Debug\net8.0-windows\refint\Domain.dll
+C:\Users\user\Source\Repos\TheoryLab1\src\ClassLibrary\obj\Debug\net8.0-windows\Domain.pdb
+C:\Users\user\Source\Repos\TheoryLab1\src\ClassLibrary\obj\Debug\net8.0-windows\ref\Domain.dll
